@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: KzH
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+      database: clothes-shop
+      auto-index-creation: true
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1000MB
+
+application:
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET_KEY}
+      expiration: 86400000
+      refresh-token:
+        expiration: 604800000
+
+server:
+  servlet:
+    context-path: '/api/'
+  error:
+    include-message: always
+  port: ${PORT:8080}
+  address: 0.0.0.0
+
+logging:
+  level:
+    org:
+      springframework:
+        web: debug
+        data:
+          mongodb:
+            core:
+              MongoTemplate: debug
