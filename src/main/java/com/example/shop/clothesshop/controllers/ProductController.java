@@ -66,6 +66,13 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(new PaginatedResponse<>(products));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponse> getProduct(@PathVariable String id) {
+        var product = productService.getById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(product);
+    }
+
     @GetMapping("/{productId}/reviews")
     public ResponseEntity<PaginatedResponse<ReviewResponse>> getReviewsByProductId(@PathVariable
                                                                                String productId,

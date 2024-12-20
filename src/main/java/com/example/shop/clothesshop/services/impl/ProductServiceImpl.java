@@ -89,6 +89,17 @@ public class ProductServiceImpl implements ProductService {
         return new PageImpl<>(productResponses, pageable, count);
     }
 
+    @Override
+    public ProductResponse getById(String id) {
+        var product = productRepository.findById(id)
+                .orElseThrow(() -> new DbNotFoundException("Product not found", HttpStatus.NOT_FOUND.getReasonPhrase()));
+
+        if (product.isDeleted())
+            throw new DbNotFoundException("Product deleted", HttpStatus.NOT_FOUND.getReasonPhrase());
+
+        return productMapper.toResponse(product);
+    }
+
     private static Query getProductQueryByParams(ProductSearchParams productSearchParams) {
         Query query = new Query();
 
@@ -114,7 +125,6 @@ public class ProductServiceImpl implements ProductService {
             String searchText = productSearchParams.getSearchText();
             query.addCriteria(new Criteria().orOperator(
                     Criteria.where("name").regex(searchText, "i"),
-                    Criteria.where("brandName").regex(searchText, "i"),
                     Criteria.where("description").regex(searchText, "i")
             ));
         }

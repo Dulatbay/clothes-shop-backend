@@ -16,4 +16,6 @@ public interface ProductService {
     void update(String productId, @Valid ProductCreateRequest productUpdateRequest);
 
     Page<ProductResponse> getAll(@Valid ProductSearchParams productSearchParams);
+
+    ProductResponse getById(String id);
 }
