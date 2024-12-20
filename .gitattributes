@@ -1,3 +1,7 @@
 /gradlew text eol=lf
 *.bat text eol=crlf
 *.jar binary
+
+
+
+fetch("http://34.47.240.4:8080/api/products?page=0&size=8")
