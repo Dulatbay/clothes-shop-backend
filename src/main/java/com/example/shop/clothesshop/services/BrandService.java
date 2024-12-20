@@ -6,6 +6,8 @@ import com.example.shop.clothesshop.dtos.response.BrandResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface BrandService {
     void create(BrandCreateRequest brandCreateRequest);
@@ -14,5 +16,5 @@ public interface BrandService {
 
     void update(String id, BrandCreateRequest carBrandUpdateRequest);
 
-    Page<BrandResponse> getAll(BrandSearchParams brandSearchParams);
+    List<BrandResponse> getAll(BrandSearchParams brandSearchParams);
 }

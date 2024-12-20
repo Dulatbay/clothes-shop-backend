@@ -80,20 +80,15 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Page<BrandResponse> getAll(BrandSearchParams brandSearchParams) {
-        var pageable = PageRequest.of(brandSearchParams.getPage(), brandSearchParams.getSize());
+    public List<BrandResponse> getAll(BrandSearchParams brandSearchParams) {
 
-        var query = getCarBrandQueryByParams(brandSearchParams)
-                .with(pageable);
+        var query = getCarBrandQueryByParams(brandSearchParams);
 
         var brands = mongoTemplate.find(query, Brand.class);
-        long count = mongoTemplate.count(query.skip(0).limit(0), Brand.class);
 
-        List<BrandResponse> brandResponses = brands.stream()
+        return brands.stream()
                 .map(brand -> new BrandResponse(brand.getId(), brand.getName(), brand.getDescription(), brand.getImageUrl()))
                 .toList();
-
-        return new PageImpl<>(brandResponses, pageable, count);
     }
 
     private static Query getCarBrandQueryByParams(BrandSearchParams brandSearchParams) {

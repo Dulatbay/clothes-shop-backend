@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/brands")
@@ -52,12 +54,12 @@ public class BrandController {
     }
 
     @GetMapping
-    public ResponseEntity<PaginatedResponse<BrandResponse>> getCars(@ModelAttribute
+    public ResponseEntity<List<BrandResponse>> getCars(@ModelAttribute
                                                                         @Valid
                                                                     BrandSearchParams searchParams) {
-        Page<BrandResponse> products = brandService.getAll(searchParams);
+        List<BrandResponse> products = brandService.getAll(searchParams);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new PaginatedResponse<>(products));
+        return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 
 
