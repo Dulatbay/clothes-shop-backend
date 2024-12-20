@@ -104,6 +104,12 @@ public class ProductServiceImpl implements ProductService {
             }
             query.addCriteria(priceCriteria);
         }
+        if (productSearchParams.getBrandId() != null) {
+            query.addCriteria(Criteria.where("brand.id").is(productSearchParams.getBrandId()));
+        }
+        if (productSearchParams.getCategoryId() != null) {
+            query.addCriteria(Criteria.where("category.id").is(productSearchParams.getCategoryId()));
+        }
         if (productSearchParams.getSearchText() != null && !productSearchParams.getSearchText().isBlank()) {
             String searchText = productSearchParams.getSearchText();
             query.addCriteria(new Criteria().orOperator(
