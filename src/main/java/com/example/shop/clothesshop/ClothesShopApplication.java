@@ -12,12 +12,4 @@ public class ClothesShopApplication {
     public static void main(String[] args) {
         SpringApplication.run(ClothesShopApplication.class, args);
     }
-
-
-    @Bean
-    public CommandLineRunner CommandLineRunnerBean(FileService fileService) {
-        return (args) -> {
-            fileService.init();
-        };
-    }
 }
